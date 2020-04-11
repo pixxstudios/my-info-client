@@ -17,14 +17,17 @@ const client = new ApolloClient({
   uri: 'http://localhost:2000/graphql',
 });
 
+const checkAuth = (auth, component) => {
+  if (auth) return component;
+
+  return <Redirect to="/" />
+};
+
 function App() {
   const auth = false;
   return (
     <ApolloProvider client={client}>
   <Router>
-  
-      {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
       <Switch>
         <Route exact path="/">
           <Login />
@@ -32,11 +35,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/home" render={() => (
-          auth === true ?
-            <Home /> :
-            <Redirect to="/" />
-        )} />
+        <Route path="/home" render={() => checkAuth(auth, <Home />) } />
       </Switch>
   </Router>
   </ApolloProvider>
