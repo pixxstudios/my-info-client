@@ -9,20 +9,10 @@ import {
 const LOGIN_MUTATION = gql`
     mutation Login($email: String!, $password: String!){
         login(email: $email, password: $password) {
-            id
             email
         }
     }
 `;
-
-const handleOnSubmit = (e, login, email, password) => {
-    e.preventDefault();
-    console.log('handleOnSubmit ', email, password);
-    login({ variables: {
-        email,
-        password 
-    } });
-}
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -30,12 +20,29 @@ const Login = () => {
     const [login] = useMutation(LOGIN_MUTATION);
     const history = useHistory();
 
+    const handleOnSubmit = (e) => {
+      e.preventDefault();
+      login({ variables: {
+          email,
+          password 
+      } }).then(({ data }) => {
+        if (data.login.email && data.login.email !== '') {
+          history.push('/home');
+        } else {
+          history.push('/');
+        }
+      }).catch((err) => {
+        console.log('err ', err);
+        history.push('/');
+      });
+  }
+
     return (
     <div className="container">
-    <Form onSubmit={(e) => handleOnSubmit(e, login, email, password)}>
+    <Form onSubmit={handleOnSubmit}>
   <Form.Group controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)}/>
+    <Form.Control type="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} required/>
     <Form.Text className="text-muted">
       We'll never share your email with anyone else.
     </Form.Text>
@@ -43,7 +50,7 @@ const Login = () => {
 
   <Form.Group controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
+    <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} required/>
   </Form.Group>
   <Button variant="primary" type="submit">
     Submit

@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ApolloClient from 'apollo-boost';
@@ -11,6 +10,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 
 import Login from './components/login';
 import Register from './components/register';
+import Home from './components/home';
 
 const client = new ApolloClient({
   uri: 'http://localhost:2000/graphql',
@@ -29,6 +29,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/home">
+          <Home />
         </Route>
       </Switch>
   </Router>
