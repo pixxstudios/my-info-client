@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap'; 
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import {
+    useHistory
+  } from "react-router-dom";
 
 const LOGIN_MUTATION = gql`
     mutation Login($email: String!, $password: String!){
@@ -25,6 +28,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [login] = useMutation(LOGIN_MUTATION);
+    const history = useHistory();
 
     return (
     <div className="container">
@@ -44,6 +48,7 @@ const Login = () => {
   <Button variant="primary" type="submit">
     Submit
   </Button>
+  <Button onClick={() => history.push("/register")}>Register</Button>
 </Form>
 </div>
 );
