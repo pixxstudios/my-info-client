@@ -1,9 +1,14 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap'; 
 
+const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log('handleOnSubmit');
+}
+
 const Login = () => (
     <div className="container">
-    <Form>
+    <Form onSubmit={handleOnSubmit}>
   <Form.Group controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
     <Form.Control type="email" placeholder="Enter email" />
