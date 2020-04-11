@@ -6,10 +6,19 @@ import {
   Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+
 import Login from './components/login';
 
+const client = new ApolloClient({
+  uri: 'http://localhost:2000/graphql',
+});
+
 function App() {
-  return (<Router>
+  return (
+    <ApolloProvider client={client}>
+  <Router>
     <div>
       <nav>
         <ul>
@@ -28,6 +37,7 @@ function App() {
       </Switch>
     </div>
   </Router>
+  </ApolloProvider>
 );
 }
 
