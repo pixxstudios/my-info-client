@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ApolloClient from 'apollo-boost';
@@ -17,6 +18,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+  const auth = false;
   return (
     <ApolloProvider client={client}>
   <Router>
@@ -30,9 +32,11 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
+        <Route path="/home" render={() => (
+          auth === true ?
+            <Home /> :
+            <Redirect to="/" />
+        )} />
       </Switch>
   </Router>
   </ApolloProvider>
