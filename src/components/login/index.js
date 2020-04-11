@@ -1,19 +1,25 @@
 import React from 'react';
+import { Form, Button } from 'react-bootstrap'; 
 
 const Login = () => (
     <div className="container">
-    <form>
-  <div className="htmlForm-group">
-    <label htmlFor="exampleInputEmail1">Email address</label>
-    <input type="email" className="htmlForm-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-    <small id="emailHelp" className="htmlhtmlForm-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div className="htmlForm-group">
-    <label htmlFor="exampleInputPassword1">Password</label>
-    <input type="password" className="htmlForm-control" id="exampleInputPassword1" placeholder="Password" />
-  </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
-</form>
+    <Form>
+  <Form.Group controlId="formBasicEmail">
+    <Form.Label>Email address</Form.Label>
+    <Form.Control type="email" placeholder="Enter email" />
+    <Form.Text className="text-muted">
+      We'll never share your email with anyone else.
+    </Form.Text>
+  </Form.Group>
+
+  <Form.Group controlId="formBasicPassword">
+    <Form.Label>Password</Form.Label>
+    <Form.Control type="password" placeholder="Password" />
+  </Form.Group>
+  <Button variant="primary" type="submit">
+    Submit
+  </Button>
+</Form>
 </div>
 );
 
