@@ -28,10 +28,8 @@ const Login = () => {
       } }).then(({ data }) => {
         console.log(data);
         if (data.login.email && data.login.email !== '') {
-          console.log('inside if');
           history.push('/home');
         } else {
-          console.log('inside else');
           history.push('/');
         }
       }).catch((err) => {
