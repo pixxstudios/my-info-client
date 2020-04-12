@@ -24,7 +24,7 @@ const checkAuth = (auth, component) => {
 };
 
 function App() {
-  const auth = false;
+  const auth = true;
   return (
     <ApolloProvider client={client}>
   <Router>

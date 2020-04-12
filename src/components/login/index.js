@@ -26,9 +26,12 @@ const Login = () => {
           email,
           password 
       } }).then(({ data }) => {
+        console.log(data);
         if (data.login.email && data.login.email !== '') {
+          console.log('inside if');
           history.push('/home');
         } else {
+          console.log('inside else');
           history.push('/');
         }
       }).catch((err) => {
@@ -52,9 +55,7 @@ const Login = () => {
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} required/>
   </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
+  <Button variant="primary" type="submit">Login </Button>
   <Button onClick={() => history.push("/register")}>Register</Button>
 </Form>
 </div>

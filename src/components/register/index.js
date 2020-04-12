@@ -1,14 +1,49 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap'; 
+import { Form, Button } from 'react-bootstrap';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+import {
+  useHistory
+} from "react-router-dom";
+
+const REGISTER_MUTATION = gql`
+    mutation Register($name: String!, $email: String!, $password: String!){
+        register(name: $name, email: $email, password: $password) {
+            email
+        }
+    }
+`;
 
 const Register = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+
+    const [register] = useMutation(REGISTER_MUTATION);
+    const history = useHistory();
+
+    const handleOnSubmit = (e) => {
+      e.preventDefault();
+      register({ variables: {
+          name,
+          email,
+          password 
+      } }).then(({ data }) => {
+        if (data.login.email && data.login.email !== '') {
+          history.push('/');
+        } else {
+          console.log('Some error ...');
+          history.push('/');
+        }
+      }).catch((err) => {
+        console.log('err ', err);
+        history.push('/');
+      });
+  }
 
     return (
     <div className="container">
-    <Form onSubmit={() => {}}>
+    <Form onSubmit={handleOnSubmit}>
 
     <Form.Group controlId="formBasicEmail">
     <Form.Label>Full name</Form.Label>
