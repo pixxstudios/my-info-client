@@ -8,6 +8,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { useCookies } from 'react-cookie';
 
 import Login from './components/login';
 import Register from './components/register';
@@ -17,14 +18,16 @@ const client = new ApolloClient({
   uri: 'http://localhost:2000/graphql',
 });
 
-const checkAuth = (auth, component) => {
-  if (auth) return component;
+const checkAuth = (token, component) => {
+  console.log('authToken ', token);
+  if (token) return component;
 
   return <Redirect to="/" />
 };
 
 function App() {
-  const auth = true;
+  const [authToken] = useCookies(['token']);
+ 
   return (
     <ApolloProvider client={client}>
   <Router>
@@ -35,7 +38,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/home" render={() => checkAuth(auth, <Home />) } />
+        <Route path="/home" render={() => checkAuth(authToken.token, <Home />) } />
       </Switch>
   </Router>
   </ApolloProvider>
