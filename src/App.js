@@ -19,15 +19,13 @@ const client = new ApolloClient({
 });
 
 const checkAuth = (token, component) => {
-  console.log('authToken ', token);
   if (token) return component;
 
   return <Redirect to="/" />
 };
 
 function App() {
-  const [authToken] = useCookies(['token']);
- 
+  const [cookies] = useCookies(['token']);
   return (
     <ApolloProvider client={client}>
   <Router>
@@ -38,7 +36,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/home" render={() => checkAuth(authToken.token, <Home />) } />
+        <Route path="/home" render={() => checkAuth(cookies.token, <Home />) } />
       </Switch>
   </Router>
   </ApolloProvider>

@@ -32,7 +32,6 @@ const Register = () => {
         if (data.login.email && data.login.email !== '') {
           history.push('/');
         } else {
-          console.log('Some error ...');
           history.push('/');
         }
       }).catch((err) => {

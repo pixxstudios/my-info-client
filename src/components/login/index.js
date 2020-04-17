@@ -26,7 +26,6 @@ const Login = () => {
           email,
           password 
       } }).then(({ data }) => {
-        console.log(data);
         if (data.login.email && data.login.email !== '') {
           history.push('/home');
         } else {
