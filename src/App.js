@@ -19,7 +19,7 @@ const client = new ApolloClient({
 });
 
 const checkAuth = (token, component) => {
-  if (token) return component;
+  return component;
 
   return <Redirect to="/" />
 };
@@ -28,17 +28,17 @@ function App() {
   const [cookies] = useCookies(['token']);
   return (
     <ApolloProvider client={client}>
-  <Router>
-      <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/home" render={() => checkAuth(cookies.token, <Home />) } />
-      </Switch>
-  </Router>
+    <Router>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/home" render={() => checkAuth(cookies.token, <Home />) } />
+        </Switch>
+    </Router>
   </ApolloProvider>
 );
 }
